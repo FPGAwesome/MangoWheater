@@ -1,0 +1,63 @@
+
+
+.overpage {
+  height: auto;
+  width: auto;
+  display: block;
+}
+
+.file_menu {
+  height: 50px;
+  width: 100%;
+  display: inline-block;
+}
+
+.PDF_Library {
+  height: 150px;
+  width: 100%;
+  display: inline-flex;
+}
+
+.PDF_Content {
+  height: 80%;
+  width: 100%;
+  display: inline-flex;
+}
+
+.PDF_Toolbar {
+  height: 70%;
+  width: 15%;
+  display: inline-flex;
+}
+
+.PDF_Viewer_notgrab {
+  height: 650px;
+  width: 85%;
+  display: block;
+  overflow: hidden;
+  cursor: grab;
+}
+
+.PDF_Viewer_grab {
+  height: 650px;
+  width: 85%;
+  display: block;
+  overflow: hidden;
+  cursor: grabbing;
+}
+
+.PDF_Viewer_Document {
+  height: 70%;
+  width: 85%;
+  margin-left: 35%;
+}
+
+.PDF_Viewer_Draggable {
+}
+
+
+.PDF_Footer {
+  height: 10%;
+  width: 90%;
+  display: inline-flex;
+}
