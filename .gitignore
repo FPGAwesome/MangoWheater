@@ -1,8 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# files I just don't want uploaded
-/public
-
 # dependencies
 /node_modules
 /.pnp
