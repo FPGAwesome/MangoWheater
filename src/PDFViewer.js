@@ -56,9 +56,10 @@ export function PDFViewer(props)
       setScale(scaleSize + (event.deltaY * -0.001));
     }
 
+    {/* Parent div makes the application flow better */}
     return(
-    <div className={cursorStatus} onWheel={onMouseWheel} onDoubleClick={onNextPage}>
-      <ResponsiveNav
+      <div className={cursorStatus}> 
+        <ResponsiveNav
         removable
         appearance="tabs"
         value="dark"
@@ -79,31 +80,35 @@ export function PDFViewer(props)
         ))}
       </ResponsiveNav>
 
-      <Draggable onStart={onStartGrabbing} onStop={onStopGrabbing}>
-        <div className='PDF_Viewer_Draggable'>
-          <Document className='PDF_Viewer_Document'
-              file={file}
-              onLoadSuccess={onDocumentLoadSuccess}
-              options={options}
-          >
-              <Page pageNumber={index} scale={scaleSize} renderMode='svg'/>
+      <div className={cursorStatus} onWheel={onMouseWheel} onDoubleClick={onNextPage}>
+        
 
-              {/* This is the default way provided by react-pdf, could be useful for multi-page support? */}
-              {/* {
-              Array.from(
-                  new Array(numPagesRender),
-                  (el, arrInd) => (
-                      <Page
-                      key={`page_${arrInd + index}`}
-                      pageNumber={arrInd + index}
-                      />
-                  ),
-                  )
-              } */}
-              
-          </Document>
-        </div>
-      </Draggable>
+        <Draggable onStart={onStartGrabbing} onStop={onStopGrabbing}>
+          <div className='PDF_Viewer_Draggable'>
+            <Document className='PDF_Viewer_Document'
+                file={file}
+                onLoadSuccess={onDocumentLoadSuccess}
+                options={options}
+            >
+                <Page pageNumber={index} scale={scaleSize} renderMode='svg'/>
+
+                {/* This is the default way provided by react-pdf, could be useful for multi-page support? */}
+                {/* {
+                Array.from(
+                    new Array(numPagesRender),
+                    (el, arrInd) => (
+                        <Page
+                        key={`page_${arrInd + index}`}
+                        pageNumber={arrInd + index}
+                        />
+                    ),
+                    )
+                } */}
+                
+            </Document>
+          </div>
+        </Draggable>
+      </div>
     </div>
     );
 }
