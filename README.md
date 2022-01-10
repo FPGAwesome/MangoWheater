@@ -16,36 +16,36 @@ This project was then carelessly ejected to use some cool components, bear this 
 
 In the project directory, you can run:
 
-### `npm start react-start`
+### `npm run react-start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-### `npm start react-build`
+### `npm run react-build`
 
 Runs in build mode, pretty self-explanatory.
 
-### `npm start react-test`
+### `npm run react-test`
 
 Ditto, for testing.
 
-### `npm start electron-build`
+### `npm run electron-build`
 
 For running the electron-build scripts, to run the desktop app via electron.
 
-### `npm start release`
+### `npm run release`
 Runs: "yarn react-build && electron-builder --publish=always"
 
 Release build for web app and desktop app.
 
-### `npm start build`
+### `npm run build`
 Runs: "yarn react-build && yarn electron-build"
 
 Ditto, unpublished.
 
-### `npm start start`
+### `npm run start`
 
 Nicest way to run the web and desktop app real quick. See: react-start for the web app info.
 
