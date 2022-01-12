@@ -21,11 +21,25 @@ export default function App() {
     <div className="overpage">
       <div className='file_menu'>
         <Nav appearance="subtle" activeKey={active} onSelect={setActive}>
-          <Nav.Item eventKey="home">Files</Nav.Item>
-          <Nav.Item eventKey="news">Bookmarks</Nav.Item>
-          <Nav.Item eventKey="solutions">Forms</Nav.Item>
-          <Nav.Item eventKey="products">About</Nav.Item>
-          <Nav.Item eventKey="about">Etc</Nav.Item>
+          <Nav.Dropdown eventKey="files" title="Files">
+            <Nav.Dropdown.Item>Open PDF...</Nav.Dropdown.Item>
+          </Nav.Dropdown>
+
+          <Nav.Dropdown eventKey="bookmarks" title="Bookmarks">
+            <Nav.Dropdown.Item>Import Bookmarks</Nav.Dropdown.Item>
+            <Nav.Dropdown.Item>Export Bookmarks</Nav.Dropdown.Item>
+            <Nav.Dropdown.Item>View Bookmarks</Nav.Dropdown.Item>
+          </Nav.Dropdown>
+
+          <Nav.Dropdown eventKey="forms" title="Forms"></Nav.Dropdown>
+
+          <Nav.Dropdown eventKey="about" title="About">
+            <Nav.Dropdown.Item>Version</Nav.Dropdown.Item>
+            <Nav.Dropdown.Item>Change Log</Nav.Dropdown.Item>
+            <Nav.Dropdown.Item>About this app</Nav.Dropdown.Item>
+          </Nav.Dropdown>
+
+          <Nav.Dropdown eventKey="etc" title="Etc"></Nav.Dropdown>
         </Nav>
       </div>
 
