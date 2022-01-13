@@ -13,7 +13,7 @@ const options = {
 
 export function PDFViewer(props)
 {
-    const [file, setFile] = useState('./alice-in-wonderland.pdf');
+    const [file, setFile] = useState(props.pdfName);
     const [numPages, setNumPages] = useState(null);
     const [cursorStatus, setCursor] = useState('PDF_Viewer_notgrab');
     const [scaleSize, setScale] = useState(1);
