@@ -10,11 +10,13 @@ import {Sidenav,Nav,Dropdown} from 'rsuite';
 // File related libs
 import {useFilePicker} from 'use-file-picker';
 
+var md5 = require('md5');
+
 //import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
   
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-
+var filenameList = [];
 // Create Document Component
 export default function App() {
 
@@ -22,21 +24,36 @@ export default function App() {
   
   // File selection
 
-  const [openFileSelector, {filesContent}] = useFilePicker({
+  const [openFileSelector, {filesContent,loading}] = useFilePicker({
     accept: '.pdf',
   });
+  
 
   function openFile(){
     openFileSelector();
   }
+
+  function getKey(name) {
+    return md5(name);
+  }
   
+  
+  if (filesContent[0]!==undefined && !loading ) {
+
+    var fileObj = {eventKey:getKey(filesContent[0].name),label:filesContent[0].name};
+    if(filenameList.filter(f => f.eventKey === fileObj.eventKey).length <= 0){
+      filenameList.push(fileObj)
+      console.log(filenameList);
+    }
+  
+  }
 
   return(
     <div className="overpage">
       <div className='file_menu'>
         <Nav appearance="subtle" activeKey={active} onSelect={setActive}>
           <Nav.Dropdown eventKey="files" title="Files">
-            <Nav.Dropdown.Item onClick={openFileSelector}>Open PDF...</Nav.Dropdown.Item>
+            <Nav.Dropdown.Item onClick={openFile}>Open PDF...</Nav.Dropdown.Item>
           </Nav.Dropdown>
 
           <Nav.Dropdown eventKey="bookmarks" title="Bookmarks">
@@ -96,13 +113,8 @@ export default function App() {
         </div>
         </div>
 
-        {(filesContent[0] != undefined) &&
-          //console.log(filesContent[0].name)
-          <PDFViewer pdfName={filesContent[0].name}/>
-        }
+        <PDFViewer files={filenameList}/>
           
-
-
       </div>
 
       {/* Maybe a nice place for annotating pages? Could be worth exporting seperate from actual pdf's */}

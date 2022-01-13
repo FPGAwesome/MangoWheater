@@ -13,7 +13,6 @@ const options = {
 
 export function PDFViewer(props)
 {
-    const [file, setFile] = useState(props.pdfName);
     const [numPages, setNumPages] = useState(null);
     const [cursorStatus, setCursor] = useState('PDF_Viewer_notgrab');
     const [scaleSize, setScale] = useState(1);
@@ -21,17 +20,14 @@ export function PDFViewer(props)
 
     //  Functions related to pdf tab selection
     // Change this up later for multi-pdf support
-    const defaultItems = [
-      { eventKey: 'A', label: file },
-      { eventKey: 'B', label: 'PDF B' },
-    ];
-
-    const [activeKey, setActiveKey] = React.useState('A');
-    const [items, setItems] = React.useState(defaultItems);
+    const [activeKey, setActiveKey] = React.useState();
+    const [items, setItems] = React.useState(props.files);
+    const [file, setFile] = React.useState();
   
     // Functions related to actual PDF page loading
-    function onFileChange(event) {
-      setFile(event.target.files[0]);
+    function onFileChange(rcvKey) {
+      setActiveKey(rcvKey);
+      setFile(props.files[props.files.findIndex(f => f.eventKey === rcvKey)].label);
     }
   
     function onDocumentLoadSuccess({ numPages: nextNumPages}) {
@@ -56,7 +52,8 @@ export function PDFViewer(props)
       setScale(scaleSize + (event.deltaY * -0.001));
     }
 
-    {/* Parent div makes the application flow better */}
+
+    /* Parent div makes the application flow better */
     return(
       <div className={cursorStatus}> 
         <ResponsiveNav
@@ -64,8 +61,8 @@ export function PDFViewer(props)
         appearance="tabs"
         value="dark"
         moreProps={{ noCaret: true }}
+        onSelect={onFileChange}
         activeKey={activeKey}
-        onSelect={setActiveKey}
         onItemRemove={eventKey => {
           const nextItems = [...items];
           nextItems.splice(nextItems.map(item => item.eventKey).indexOf(eventKey), 1);
@@ -82,7 +79,6 @@ export function PDFViewer(props)
 
       <div className={cursorStatus} onWheel={onMouseWheel} onDoubleClick={onNextPage}>
         
-
         <Draggable onStart={onStartGrabbing} onStop={onStopGrabbing}>
           <div className='PDF_Viewer_Draggable'>
             <Document className='PDF_Viewer_Document'
@@ -90,7 +86,7 @@ export function PDFViewer(props)
                 onLoadSuccess={onDocumentLoadSuccess}
                 options={options}
             >
-                <Page pageNumber={index} scale={scaleSize} renderMode='svg'/>
+                <Page pageNumber={index} scale={scaleSize} renderTextLayer={false}/>
 
                 {/* This is the default way provided by react-pdf, could be useful for multi-page support? */}
                 {/* {
